@@ -56,8 +56,12 @@ Aws::String ComputeOSVersionString()
     // regex is not allocator-aware, so technically we're breaking our memory contract here (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3254.pdf)
     // Since it's internal, nothing escapes, and what gets allocated/deallocated is very small, I think that's acceptable for now
 
+    throw std::runtime_error("NO REGEX!");
+    return Aws::String("");
+    /*
     std::string androidBuildVersion = GetSysCommandOutput("cat /proc/version 2>&1").c_str();
     std::regex versionRegex("version (\\S+)\\s");
+
 
     std::smatch versionMatchResults;
     std::regex_search(androidBuildVersion, versionMatchResults, versionRegex);
@@ -68,6 +72,7 @@ Aws::String ComputeOSVersionString()
     }
 
     return Aws::String("Android/Unknown");
+    */
 }
 
 } // namespace OSVersionInfo

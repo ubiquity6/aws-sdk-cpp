@@ -606,6 +606,9 @@ QueryResult AccessManagementClient::IsPolicyAttachedToUser(const Aws::String& po
 // Since it's internal, nothing escapes, and what gets allocated/deallocated is very small, I think that's acceptable for now
 Aws::String AccessManagementClient::ExtractAccountIdFromArn(const Aws::String& arn)
 {
+    throw std::runtime_error("NO REGEX!");
+    return Aws::String("");
+    /*
     std::string searchTarget(arn.c_str());
     std::regex accountIdRegex("::(\\d*):");
 
@@ -618,6 +621,7 @@ Aws::String AccessManagementClient::ExtractAccountIdFromArn(const Aws::String& a
     }
 
     return "";
+    */
 }
 
 bool AccessManagementClient::DoesCredentialsFileExist(const Aws::String& credentialsFilename)

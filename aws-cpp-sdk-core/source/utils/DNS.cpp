@@ -32,8 +32,25 @@ namespace Aws
             // 3- Have a maximum length of 63 characters (the entirety of the domain name should be less than 255 bytes)
 
             //TODO: consider making this regex static and passing std::regex_constants::optimize flag
-            const std::regex dnsLabel("^[[:alnum:]](?:[[:alnum:]-]{0,61}[[:alnum:]])?$");
-            return regex_search(label, dnsLabel);
+            //const std::regex dnsLabel("^[[:alnum:]](?:[[:alnum:]-]{0,61}[[:alnum:]])?$");
+            //return regex_search(label, dnsLabel);
+            if (label.empty())
+              return false;
+            if (label.size() > 63)
+                return false;
+            
+            if (!isalnum(label.front()))
+                return false; // '-' is not acceptable as the first character
+            if (!isalnum(label.back()))
+                return false; // '-' is not acceptable as the last  character
+            
+            for (int i = 1, e = label.size() - 1; i < e; ++i) {
+                auto c = label[i];
+                if (c != '-' && !isalnum(c))
+                    return false;
+            }
+            
+            return true;
         }
     }
 }
